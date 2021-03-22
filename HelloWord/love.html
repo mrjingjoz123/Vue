@@ -1,12 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 </head>
+
 <body>
-    
+    <div id="app">
+        <input type="radio" name="animal" id="animal" value="animal" v-model="loveType">
+        <label for="animal">Animal</label>
+        <input type="radio" name="flower" id="flower" value="flower" v-model="loveType">
+        <label for="flower">Flower</label><br>
+        <template v-if="loveType=='animal'">
+            <div>
+                <input type="checkbox" name="dog" id="dog" value="dog" v-model="loveList">
+                <label for="dog">Dog</label>
+                <input type="checkbox" name="cat" id="cat" value="cat" v-model="loveList">
+                <label for="cat">Cat</label>
+                <input type="checkbox" name="fish" id="fish" value="fish" v-model="loveList">
+                <label for="fish">Fish</label>
+
+            </div>
+        </template>
+
+        <template v-if="loveType=='flower'">
+            <div>
+                <input type="checkbox" name="rose" id="rose" value="rose" v-model="loveList">
+                <label for="rose">Rose</label>
+                <input type="checkbox" name="lotus" id="lotus" value="lotus" v-model="loveList">
+                <label for="lotus">Lotus</label>
+                <input type="checkbox" name="mali" id="mali" value="mali" v-model="loveList">
+                <label for="mali">Mali</label>
+            </div>
+        </template>
+
+
+        <span>Love Type: {{ loveType }}</span><br>
+        <span>Love List: {{ loveList }}</span><br>
+
+    </div>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                loveType: '',
+                loveList: [],
+            },
+            computed: {
+
+            },
+            watch: {
+
+            },
+
+        });
+    </script>
+
 </body>
+
 </html>
