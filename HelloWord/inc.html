@@ -8,13 +8,14 @@
 </head>
 <body>
     <div id="app">
-
+        <button v-on:click=count++ >{{ count }}</button>
     </div>
     <script>
+    
          var app = new Vue({
             el: '#app',
             data: {
-                
+                count: 0,
             }
         })
     </script>
