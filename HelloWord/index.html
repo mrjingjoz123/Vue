@@ -20,6 +20,18 @@
                     myname: 'Puvis'
                  }
                 });
-          </script>
+        </script>
+           <div id="app2">
+            <a v-bind:href="googleLink">{{ googleName }}</a>
+        </div>
+        <script>
+            new Vue({
+                el: '#app2',
+                data: {
+                    googleName: 'Google',
+                    googleLink: 'https://www.google.com'
+                }
+            })
+        </script>    
 </body>
 </html>
