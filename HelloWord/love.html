@@ -14,7 +14,7 @@
         <label for="animal">Animal</label>
         <input type="radio" name="flower" id="flower" value="flower" v-model="loveType">
         <label for="flower">Flower</label><br>
-        <template v-if="loveType=='animal'">
+        <template v-if="isLoveTypeAnimal">
             <div>
                 <input type="checkbox" name="dog" id="dog" value="dog" v-model="loveList">
                 <label for="dog">Dog</label>
@@ -25,8 +25,7 @@
 
             </div>
         </template>
-
-        <template v-if="loveType=='flower'">
+        <template v-else-if="isLoveTypeFlower">
             <div>
                 <input type="checkbox" name="rose" id="rose" value="rose" v-model="loveList">
                 <label for="rose">Rose</label>
@@ -37,10 +36,21 @@
             </div>
         </template>
 
+        <template v-else>
+            <div>
+                Please select one!!
+            </div>
+        </template>
 
         <span>Love Type: {{ loveType }}</span><br>
-        <span>Love List: {{ loveList }}</span><br>
+        <span>Love List: <span v-if="loveList.length==0">Nothing</span></span>
+        <ul>
+            <li v-for="love in loveList">
+                {{ love }}
+            </li>
+        </ul>
 
+        <span>Love List Length: {{ getLoveListLength }}</span><br>
     </div>
     <script>
         var app = new Vue({
@@ -50,9 +60,21 @@
                 loveList: [],
             },
             computed: {
+                getLoveListLength: function(){
+                    return this.loveList.length;
+                },
+                isLoveTypeAnimal: function(){
+                    return this.loveType=='animal';
+                },
+                isLoveTypeFlower: function(){
+                    return this.loveType=='flower';
+                }
 
             },
             watch: {
+                loveType: function (newValue, oldValue) {
+                    this.loveList = [];
+                }
 
             },
 
