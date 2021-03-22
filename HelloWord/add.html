@@ -10,14 +10,28 @@
 
 <body>
     <div id="app">
-
+        <input type="number" v-model="number1">
+        +
+        <input type="number" v-model="number2">
+        =
+        <span>{{ add }}</span>
     </div>
     <script>
         var app = new Vue({
             el: '#app',
             data: {
+                number1: 0,
+                number2: 0,
+                result: 0
+            },
+            methods: {
                 
-            }
+            },
+            computed: {
+                add: function(){
+                    return parseInt(this.number1)+parseInt(this.number2);
+                }
+            },
         })
     </script>
 
