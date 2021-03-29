@@ -8,22 +8,24 @@
 
 </head>
 <body>
-    <div>{{result}} {{count}} times</div>
+    <div id="app">
+        <div>{{result}} {{count}} times</div>
         <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button>
         <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button>
         <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button><br>
-
         <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button>
         <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button>
         <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button><br>
-
         <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button>
         <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button>
         <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button><br>
-</div>
+    </div>
+    <script type="text/x-template" id="bomb-button">
+        <button @click="open" style="width:25px;height:25px">{{value}}</button>
+    </script>
     <script>
-       Vue.component('bomb-button',{
-        props:{
+        Vue.component('bomb-button',{
+            props:{
                 isBomb:Boolean
             },
             data: function(){
@@ -32,17 +34,18 @@
                     clicked:false
                 };
             },
-            methods: {
+            methods:{
                 open:function(){
                     if(this.clicked) return; 
                     this.clicked = true;
+                    
                     this.$emit('click');
                     if(!this.isBomb) return;
                     this.value = "*";
                     this.$emit('bomb');
                 }
             },
-            template:'<button @click="open" style="width:25px;height:25px">{{value}}</button>'
+            template:'#bomb-button'
         });
         var app = new Vue({
             el:'#app',
@@ -57,10 +60,8 @@
                 clickBomb:function(){
                     this.count++;
                 },
-
             },
         });
-
     </script>
 </body>
 </html>
