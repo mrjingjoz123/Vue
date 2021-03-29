@@ -9,13 +9,26 @@
 <body>
     <div id="app">
         <button v-for="color in colors" v-bind:style="{backgroundColor: color}" v-on:click="addBox(color)">{{color}}</button>
-        <div v-for="(box,index) in boxes">{{index}}. {{box}}</div>
-
+        <template  v-if="boxes.length == 0">
+            <div>No Box</div>
+        </template>
+        <template v-else>
+            <div v-for="(box,index) in boxes" v-bind:key="box.id" v-bind:style="{
+                position:'relative',width:'150px',borderStyle:'solid',borderWidth:'1px',backgroundColor:box.color}">
+                {{box.id}}. {{box.color}}
+                <span style="position: absolute;right: 0;">
+                    <button v-on:click="removeBox(index)">X</button>
+                    <button v-on:click="upBox(index)" v-if="index != 0">^</button>
+                    <button v-on:click="downBox(index)" v-if="index != boxes.length - 1">v</button>
+                </span>
+            </div>
+        </template>
     </div>
     <script>
         var app = new Vue({
             el:'#app',
             data: {
+                lastId:0,
                 colors:[
                     'red',
                     'green',
@@ -29,7 +42,23 @@
             },
             methods:{
                 addBox:function(color){
-                    this.boxes.push(color);
+                    this.boxes.push({
+                        id:this.lastId++,
+                        color:color,
+                    });
+
+                },
+                removeBox:function(index){
+                    this.boxes.splice(index,1);
+                },
+                upBox:function(index){
+                    var temp = [this.boxes[index-1],this.boxes[index]];
+                    this.boxes.splice(index-1,2,temp[1],temp[0]);
+                },
+                downBox:function(index){
+                    var temp = [this.boxes[index+1],this.boxes[index]];
+                    this.boxes.splice(index,2,temp[0],temp[1]);
+
                 }
             }
         });
