@@ -32,23 +32,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
+                <tr v-for="(todo,index) in todos">
+                    <th scope="row">{{todo.id}}</th>
+                    <td>{{todo.text}}</td>    
                 <td>
                     <button class="btn btn-warning">Edit</button>
                     <button class="btn btn-danger">Delete</button>
                 </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>the Bird</td>
               </tr>
             </tbody>
         </table>
@@ -57,10 +47,25 @@
         var app = new Vue({
             el:'#app',
             data: {
-                
-            },
-            
-            
+                todos:[
+                    {
+                        id:1,
+                        text:'ล้างจาน'
+                    },
+                    {
+                        id:2,
+                        text:'ซักผ้า'
+                    },
+                    {
+                        id:3,
+                        text:'ทำการบ้าน'
+                    },
+                    {
+                        id:4,
+                        text:'เล่นเกมส์'
+                    }
+                ],
+            },   
         });
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
