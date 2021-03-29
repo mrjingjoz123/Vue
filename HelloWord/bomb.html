@@ -8,15 +8,18 @@
 
 </head>
 <body>
-    <div id="bomb-button1">
-        <button @click="open" style="width:25px;height:25px">{{value}}</button>
-    </div>
+    <div id="app">
+        <bomb-button></bomb-button><bomb-button></bomb-button><bomb-button></bomb-button>
+        <bomb-button></bomb-button><bomb-button></bomb-button><bomb-button></bomb-button>
+        <bomb-button></bomb-button><bomb-button></bomb-button><bomb-button></bomb-button>
+ </div>
     <script>
-        var bombButton1 = new Vue({
-            el:'#bomb-button1',
-            data:{
-                isBomb:true,
-                value:'-'
+       Vue.component('bomb-button',{
+            data: function(){
+                return{
+                    isBomb:true,
+                    value:'-'
+                };
             },
             methods: {
                 open:function(){
@@ -25,7 +28,18 @@
                     }
                 }
             },
+            template:'<button @click="open" style="width:25px;height:25px">{{value}}</button>'
         });
+        var app = new Vue({
+            el:'#app',
+            data:{
+
+            },
+            methods: {
+                
+            },
+        });
+
     </script>
 </body>
 </html>
