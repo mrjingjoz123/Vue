@@ -2,11 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
 </head>
 <body>
-    
+    <div id="bomb-button1">
+        <button @click="open" style="width:25px;height:25px">{{value}}</button>
+    </div>
+    <script>
+        var bombButton1 = new Vue({
+            el:'#bomb-button1',
+            data:{
+                isBomb:true,
+                value:'-'
+            },
+            methods: {
+                open:function(){
+                    if(this.isBomb){
+                        this.value = "*";
+                    }
+                }
+            },
+        });
+    </script>
 </body>
 </html>
