@@ -11,7 +11,8 @@
     <div class="container" id="app">
         <form>
             <div class="form-group">
-              <input type="text" class="form-control" id="textTodo" placeholder="เพิ่มสิ่งที่ต้องทำ">
+                <input v-if="todo==null" @keydown.enter.prevent ="addTodo" type="text" class="form-control" id="textTodo" placeholder="เพิ่มสิ่งที่ต้องทำ">
+                <input v-else @keydown.enter.prevent ="editTodo" type="text" class="form-control" id="textTodo" :value="todo.text" placeholder="แก้ไขสิ่งที่ต้องทำ">  
             </div>
         </form>
         <nav aria-label="Page navigation example">
@@ -36,8 +37,8 @@
                     <th scope="row">{{todo.id}}</th>
                     <td>{{todo.text}}</td>    
                 <td>
-                    <button class="btn btn-warning">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn btn-warning" @click="editOperation(todo)">Edit</button>
+                    <button class="btn btn-danger" @click="removeTodo(todo.id)">Delete</button>
                 </td>
               </tr>
             </tbody>
@@ -47,6 +48,8 @@
         var app = new Vue({
             el:'#app',
             data: {
+                lastId:5,
+                todo:null,
                 todos:[
                     {
                         id:1,
@@ -65,7 +68,27 @@
                         text:'เล่นเกมส์'
                     }
                 ],
-            },   
+            },methods: {
+                addTodo:function(event){
+                    var newTodo = {
+                        id: this.lastId++,
+                        text:event.target.value
+                    };
+                    this.todos.push(newTodo);
+                    event.target.value = '';
+                },
+                editOperation:function(todo){
+                    this.todo = todo;
+                },
+                editTodo:function(event){
+                    this.todo.text = event.target.value;
+                    this.todo = null;
+                },
+                removeTodo:function(index){
+                    this.todos.splice(index-1,1)
+                }
+            }
+         
         });
     </script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
