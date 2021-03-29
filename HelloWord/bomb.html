@@ -8,24 +8,38 @@
 
 </head>
 <body>
-    <div id="app">
-        <bomb-button></bomb-button><bomb-button></bomb-button><bomb-button></bomb-button>
-        <bomb-button></bomb-button><bomb-button></bomb-button><bomb-button></bomb-button>
-        <bomb-button></bomb-button><bomb-button></bomb-button><bomb-button></bomb-button>
- </div>
+    <div>{{result}} {{count}} times</div>
+        <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button>
+        <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button>
+        <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button><br>
+
+        <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button>
+        <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button>
+        <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button><br>
+
+        <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button>
+        <bomb-button :is-bomb="true" @bomb="bomb" @click="clickBomb"></bomb-button>
+        <bomb-button :is-bomb="false" @bomb="bomb" @click="clickBomb"></bomb-button><br>
+</div>
     <script>
        Vue.component('bomb-button',{
+        props:{
+                isBomb:Boolean
+            },
             data: function(){
                 return{
-                    isBomb:true,
-                    value:'-'
+                    value:'-',
+                    clicked:false
                 };
             },
             methods: {
                 open:function(){
-                    if(this.isBomb){
-                        this.value = "*";
-                    }
+                    if(this.clicked) return; 
+                    this.clicked = true;
+                    this.$emit('click');
+                    if(!this.isBomb) return;
+                    this.value = "*";
+                    this.$emit('bomb');
                 }
             },
             template:'<button @click="open" style="width:25px;height:25px">{{value}}</button>'
@@ -33,10 +47,17 @@
         var app = new Vue({
             el:'#app',
             data:{
-
+                result:'',
+                count:0
             },
             methods: {
-                
+                bomb:function(){
+                    this.result="You lose !!!";
+                },
+                clickBomb:function(){
+                    this.count++;
+                },
+
             },
         });
 
